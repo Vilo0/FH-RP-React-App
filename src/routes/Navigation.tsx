@@ -12,23 +12,20 @@ export const Navigation = () => {
             <nav>
                 <img src={logo} alt="React Logo" />
                 <ul>
-                    { routes.map((route, i) => (
-                        <li key={i}>
-                            <NavLink to={route.to} className={ ({ isActive }) => isActive ? 'nav-active': '' }>{route.name}</NavLink>
+                    { routes.map(({ to, name }) => (
+                        <li key={to}>
+                            <NavLink to={to} className={ ({ isActive }) => isActive ? 'nav-active': '' }>{name}</NavLink>
                         </li>
                     ))}
                 </ul>
             </nav>
 
             <Routes>
-                { routes.map((route, i) => (
-                    <Route key={i} path={ route.path } element={ <route.Component /> } />
+                { routes.map((route) => (
+                    <Route key={route.to} path={ route.path } element={ <route.Component /> } />
                 ))}
-                {/* <Route path="lazy1" element={ <LazyPage1 /> } />
-                <Route path="lazy2" element={ <LazyPage2 /> } />
-                <Route path="lazy3" element={ <LazyPage3 /> } /> */}
 
-                {/* <Route path="/*" element={ <Navigate to="/lazy-1" replace /> } /> */}
+                <Route path="/*" element={ <Navigate to={ routes[0].to } replace /> } />
             </Routes>
         </div>
     </BrowserRouter>
